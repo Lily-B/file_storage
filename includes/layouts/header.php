@@ -3,6 +3,9 @@
 <head>
     <meta charset="utf-8">
     <title>File Storage</title>
+    <link href="css/default.css" media="all" rel="stylesheet" type="text/css"/>
+    <link href="css/basic.css" media="all" rel="stylesheet" type="text/css"/>
+    <script src="js/file_validation.js"></script>
 </head>
 <body>
 <header>

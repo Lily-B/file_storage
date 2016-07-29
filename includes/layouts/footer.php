@@ -1,4 +1,4 @@
-<footer>Copyright <?php echo date("Y");?>, File Storage Corp</footer>
+
 </body>
 </html>
 <?php

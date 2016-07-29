@@ -6,8 +6,15 @@
 <main>
 
 			<p>Welcome!</p>
+	<br />
+<form name="upload" onsubmit="return is_valid_form();" action="upload.php" enctype="multipart/form-data" method="post">
+	<input type="file" id="upload_file" name="upload_file" >
+	<input type="submit" value="Upload">
+</form>
 
-<main>
+
+
+</main>
 
 <?php include("../includes/layouts/footer.php"); ?>
 

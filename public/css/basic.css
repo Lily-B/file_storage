@@ -1,0 +1,44 @@
+html { height: 100%; width: 100%; }
+
+body{
+    width: 100%; height: 100%;
+    background-color: rgba(86, 152, 185, 0.35);
+    font-family: "Lucida Sans Unicode",  sans-serif;
+    font-size: 16px; font-stretch: expanded;
+    line-height: 150%;
+}
+
+header{
+    height: 20%;
+    margin: 0;padding: 0;
+    background-color: rgba(106, 152, 197, 0.37);
+    color: #060710;
+}
+
+header h1{
+    padding-top: 1em;
+    font-size: 45px;
+    text-align: center;
+    line-height: 1em;
+}
+
+main {
+    height: 80%; width: 100%;
+    margin: 0 10% 0 10%; padding: 20px 0 0 0;
+}
+
+div.message {
+    border: 2px solid #8D0D19;
+    color: #8D0D19; font-weight: bold;
+    margin: 1em 0; padding: 1em;
+}
+
+.error {
+    color: #8D0D19; border: 2px solid #8D0D19;
+    margin: 1em 0; padding: 1em;
+}
+
+td, th {
+    width: 200px;
+    text-align: left;
+}
