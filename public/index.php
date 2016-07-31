@@ -16,9 +16,14 @@
 
 <?php echo session_message(); ?>
 
+<?php
+// Check if table 'uploaded_files' exists id DB
+	if(!table_exists_in_db("uploaded_files")){create_new_table("uploaded_files");}
+	if (!table_is_empty("uploaded_files")){
+    echo table_files_in_storage();}
+?>
 
 
 </main>
 
 <?php include("../includes/layouts/footer.php"); ?>
-
