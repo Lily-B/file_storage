@@ -58,7 +58,7 @@ function table_is_empty($table_name){
 // Returns HTML table of uploaded files
 function table_files_in_storage(){
 
-    $files_set=find_all_files();
+    $files_set = find_all_files();
 
     $table = "<table>";
     $table .= "<tr>";
@@ -68,8 +68,8 @@ function table_files_in_storage(){
         $table .= "<tr>";
           $table .= "<td>".htmlentities($file["name"])."</td>";
           $table .= "<td>".htmlentities($file["size"])."</td>";
-          $table .= "<td><a href='delete.php?file=".urlencode($file["id"])."'>Delete</a>
-                         <a href='download.php?file=".urlencode($file["id"])."'> Download</a></td>";
+          $table .= "<td><a href='delete.php?id=".urlencode($file["id"])."'>Delete</a>
+                         <a href='download.php?id=".urlencode($file["id"])."'> Download</a></td>";
         $table .= "</tr>";
     }
     $table .= "</table>";
@@ -92,5 +92,24 @@ function find_all_files() {
 function confirm_query($result_set){
     if (!$result_set){
             die("Database query failed.");
+    }
+}
+
+// Returns file name from database by file ID
+function find_file_name_by_id($file_id){
+    global $connection;
+
+    $safe_file_id = mysqli_real_escape_string($connection, $file_id);
+
+    $query = "SELECT name ";
+    $query .= "FROM uploaded_files ";
+    $query .= "WHERE id = {$safe_file_id} ";
+    $query .= "LIMIT 1";
+    $file_set = mysqli_query($connection, $query);
+    confirm_query($file_set);
+    if ($file = mysqli_fetch_assoc($file_set)){
+        return $file["name"];
+    }else {
+        return null;
     }
 }
