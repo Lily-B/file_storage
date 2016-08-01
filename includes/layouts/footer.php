@@ -1,4 +1,4 @@
-
+<script src="js/js_functions.js"></script>
 </body>
 </html>
 <?php

@@ -6,24 +6,24 @@
 
 <main>
 
-			<p>Welcome!</p>
-	<br />
-<form name="upload" onsubmit="return is_valid_form();"
+			<p>Welcome!</p><br/>
+
+<form name="upload" id="upload_form" onsubmit="return uploadFile();"
 	  action="upload.php" enctype="multipart/form-data" method="post">
 	<input type="file" id="upload_file" name="upload_file">
-	<input type="submit" name="submit" value="Upload">
+	<input type="submit" id="submit" name="submit" value="Upload">
+	<progress id="progress_bar" value="0" max="100"></progress>
 </form>
 
-<?php echo session_message(); ?>
+<br/><br/>
+    <?php echo session_message(); ?>
 
-<?php
-// Check if table 'uploaded_files' exists id DB
-	if(!table_exists_in_db("uploaded_files")){create_new_table("uploaded_files");}
-	if (!table_is_empty("uploaded_files")){
-    echo table_files_in_storage();}
-?>
-
-
+    <?php
+    // Check if table 'uploaded_files' exists in DB
+    if(!table_exists_in_db("uploaded_files")){create_new_table("uploaded_files");}
+    if (!table_is_empty("uploaded_files")){
+        echo table_files_in_storage();}
+    ?>
 </main>
 
 <?php include("../includes/layouts/footer.php"); ?>
