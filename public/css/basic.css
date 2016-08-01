@@ -3,7 +3,7 @@ html { height: 100%; width: 100%; }
 body{
     width: 100%; height: 100%;
     background-color: rgba(86, 152, 185, 0.35);
-    font-family: "Lucida Sans Unicode",  sans-serif;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
     font-size: 16px; font-stretch: expanded;
     line-height: 150%;
 }
@@ -38,10 +38,57 @@ div.message {
     margin: 1em 0; padding: 1em;
 }
 
+/* Table Style */
+
+table {
+    position: relative;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+    width: 100%;
+    border-spacing: 0;
+    border-collapse: collapse;
+}
 td, th {
-    width: 200px;
+    padding: 8px;
+    line-height: 1.42857143;
+    vertical-align: top;
+    border-top: 1px solid rgba(190,190,190,0.8);
+    text-align: right;
+}
+th{
+    font-weight: bold;
+}
+th:first-child, td:first-child {
     text-align: left;
 }
+tr:nth-of-type(odd) {
+    background-color: rgba(249,249,249,0.1);
+}
+td:last-child a {
+    visibility: hidden;
+}
+tr:hover{
+    background-color: rgba(249,249,249,0.2);
+}
+tr:hover a{
+    visibility: visible;
+}
+td a{
+    display: inline-block;
+    position: relative;
+    height: 25px;
+    width: 25px;
+    background-size: 100%;
+    margin-right: 15px;
+}
+td a.delete{
+    background-image: url("../jpg/24.ico");
+}
+td a.download{
+    background-image: url("../jpg/38.ico");
+}
+
 
 #progress_bar{
     width: 300px;

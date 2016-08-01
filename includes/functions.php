@@ -68,8 +68,8 @@ function table_files_in_storage(){
         $table .= "<tr>";
           $table .= "<td>".htmlentities($file["name"])."</td>";
           $table .= "<td>".htmlentities($file["size"])."</td>";
-          $table .= "<td><a href='delete.php?id=".urlencode($file["id"])."'>Delete</a>
-                         <a href='download.php?id=".urlencode($file["id"])."'> Download</a></td>";
+          $table .= "<td><a class='delete' href='delete.php?id=".urlencode($file["id"])."'></a>
+                         <a class='download' href='download.php?id=".urlencode($file["id"])."'></a></td>";
         $table .= "</tr>";
     }
     $table .= "</table>";
