@@ -5,9 +5,10 @@ require_once("../includes/functions.php");
 
 if(isset($_GET['id'])) {
     $file_id = $_GET['id'];
-    $file_name = find_file_name_by_id($file_id);
-    $upload_dir = 'uploads/';
-    $full_file_name = $upload_dir . $file_name;
+    $file = find_file_by_id($file_id);
+    $file_name = $file["name"];
+    // Full file name in directory
+    $file_name_in_dir = $file["name_in_dir"];
 
 // Delete row from DB table
     $query = "DELETE FROM uploaded_files ";
@@ -16,9 +17,9 @@ if(isset($_GET['id'])) {
     $result = mysqli_query($connection, $query);
 
     if ($result && mysqli_affected_rows($connection) == 1) {
-        if (file_exists($full_file_name)) {
+        if (file_exists($file_name_in_dir)) {
 // Delete file from directory
-            if(unlink($full_file_name)){
+            if(unlink($file_name_in_dir)){
                 $_SESSION["message"] = "File deleted.";
                 redirect_to("index.php");
             }else{
@@ -30,7 +31,7 @@ if(isset($_GET['id'])) {
             redirect_to("index.php");
         }
     } else {
-        $_SESSION["message"] = "Cannot delete file from directory from db.";
+        $_SESSION["message"] = "Cannot delete file from db.";
         redirect_to("index.php");
     }
 

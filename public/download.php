@@ -3,10 +3,11 @@ require_once("../includes/db_connection.php");
 require_once("../includes/functions.php");
 
 if(isset($_GET['id'])){
-    $file_name = find_file_name_by_id($_GET['id']);
-    $upload_dir = 'uploads/';
-    $full_file_name = $upload_dir.$file_name;
-    $extension = strtolower(substr(strrchr($file_name,"."),1));
+    $file = find_file_by_id($_GET['id']);
+    $file_name = $file["name"];
+    // Full file name in directory
+    $file_name_in_dir = $file["name_in_dir"];
+    $extension = get_file_extension($file_name);
 // Define Content-Type of selected file:
         switch ($extension) {
             case "jpg": $ctype="image/jpg"; break;
@@ -23,11 +24,11 @@ if(isset($_GET['id'])){
             default: $ctype="application/force-download";
         }
 // Download file
-    if (file_exists($full_file_name)) {
+    if (file_exists($file_name_in_dir)) {
         header('Content-Type: '.$ctype.'; charset=utf-8');
         header("Content-Disposition: attachment; filename=".$file_name);
         ob_clean();
-        readfile(realpath($full_file_name));
+        readfile(realpath($file_name_in_dir));
         exit();
     }
 } else {

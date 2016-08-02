@@ -12,9 +12,13 @@ if(isset($_POST['submit'])) {
     $upload_dir = 'uploads/';
     //Original File name:
     $upload_file_name = $_FILES['upload_file']['name'];
+    $upload_file_extension = get_file_extension($upload_file_name);
     // for MySQL
     $file_name_in_db = mysql_prep($upload_file_name);
     $file_size_in_db = (int) $_FILES['upload_file']['size'];
+    $upload_date = date("Y-m-d H:i:s");
+// Full file name in directory
+    $file_name_in_dir = $upload_dir . microtime().".".$upload_file_extension;
 
 
     // Process the form
@@ -25,11 +29,11 @@ if(isset($_POST['submit'])) {
     }
 
     // Copy uploaded file:
-    if (copy($_FILES['upload_file']['tmp_name'], $upload_dir . basename($_FILES['upload_file']['name']))) {
+    if (move_uploaded_file($_FILES['upload_file']['tmp_name'], $file_name_in_dir )) {
         $query = "INSERT INTO uploaded_files (";
-        $query .= "name, size";
+        $query .= "name, size, date, name_in_dir";
         $query .= ") VALUES (";
-        $query .= "'{$file_name_in_db}', {$file_size_in_db}";
+        $query .= "'{$file_name_in_db}', {$file_size_in_db}, '{$upload_date}', '{$file_name_in_dir}'";
         $query .= ")";
         $result = mysqli_query($connection, $query);
 

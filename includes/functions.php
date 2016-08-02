@@ -33,6 +33,8 @@ function create_new_table($table_name){
     $query .= "id INT(11) NOT NULL AUTO_INCREMENT, ";
     $query .= "name VARCHAR(255) NOT NULL, ";
     $query .= "size INT(9) NOT NULL, ";
+    $query .= "date DATETIME NOT NULL, ";
+    $query .= "name_in_dir VARCHAR(255) NOT NULL, ";
     $query .= "PRIMARY KEY (id) )";
     $result = mysqli_query($connection, $query);
     if ($result) {
@@ -62,12 +64,13 @@ function table_files_in_storage(){
 
     $table = "<table>";
     $table .= "<tr>";
-    $table .= "<th>File Name</th><th>Size</th><td>&nbsp;</td>";
+    $table .= "<th>File Name</th><th>Size</th><th>Upload date</th><td>&nbsp;</td>";
     $table .= "</tr>";
     while ($file = mysqli_fetch_assoc($files_set)){
         $table .= "<tr>";
           $table .= "<td>".htmlentities($file["name"])."</td>";
           $table .= "<td>".htmlentities($file["size"])."</td>";
+          $table .= "<td>".htmlentities($file["date"])."</td>";
           $table .= "<td><a class='delete' href='delete.php?id=".urlencode($file["id"])."'></a>
                          <a class='download' href='download.php?id=".urlencode($file["id"])."'></a></td>";
         $table .= "</tr>";
@@ -77,11 +80,11 @@ function table_files_in_storage(){
     return $table;
 }
 
-// Returns set of uploaded files
+// Returns set of uploaded files (id, name, size, date)
 function find_all_files() {
     global $connection;
 
-    $query = "SELECT id, name, size ";
+    $query = "SELECT id, name, size, date ";
     $query .= "FROM uploaded_files ";
     $query .= "ORDER BY id DESC";
     $files_set = mysqli_query($connection, $query);
@@ -95,21 +98,28 @@ function confirm_query($result_set){
     }
 }
 
-// Returns file name from database by file ID
-function find_file_name_by_id($file_id){
+// Returns file array with "name" and "name_in_dir" from database by file ID
+function find_file_by_id($file_id){
     global $connection;
 
     $safe_file_id = mysqli_real_escape_string($connection, $file_id);
 
-    $query = "SELECT name ";
+    $query = "SELECT name, name_in_dir ";
     $query .= "FROM uploaded_files ";
     $query .= "WHERE id = {$safe_file_id} ";
     $query .= "LIMIT 1";
     $file_set = mysqli_query($connection, $query);
     confirm_query($file_set);
     if ($file = mysqli_fetch_assoc($file_set)){
-        return $file["name"];
+        return $file;
     }else {
         return null;
     }
+}
+
+// Returns file's extension
+function get_file_extension($file_name){
+    $parts = explode('.', $file_name);
+    $ext = strtolower($parts[(count($parts) - 1)]);
+    return $ext;
 }
